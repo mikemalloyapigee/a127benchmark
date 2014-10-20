@@ -1,0 +1,404 @@
+swagger: 2.0
+info:
+  version: "0.0.1"
+  title: Hello World App
+# during dev, should point to your local machine
+host: localhost
+# basePath prefixes all resource paths 
+basePath: /
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+x-a127-config: 
+  apigeeProxyKey: &apigeeProxyKey CONFIGURED
+  apigeeProxyUri: &apigeeProxyUri CONFIGURED
+x-volos-resources: 
+  cache:
+    provider: volos-cache-memory
+    options:
+      name: name
+      ttl: 1000
+  analytics:
+    provider: "volos-analytics-apigee"
+    options:
+      key: *apigeeProxyKey
+      uri: *apigeeProxyUri
+      proxy: benchmark,
+      bufferSize: 100,
+      flushInterval: 10,
+      batchSize: 10
+  quota:
+    provider: volos-quota-memory
+    options:
+      timeUnit: minute
+      interval: 1
+      allow: 1000000
+  spikeArrest:
+    provider: "volos-spikearrest-memory"
+    options:
+      timeUnit: "second"
+      allow: 5000000
+  oauth2:
+    provider: volos-oauth-apigee
+    options:
+      key: *apigeeProxyKey
+      uri: *apigeeProxyUri
+      validGrantTypes:
+        - client_credentials
+        - authorization_code
+        - implicit_grant
+      tokenPaths:  # These will be added to your paths section for you
+        authorize: /authorize
+        token: /accesstoken
+        invalidate: /invalidate
+        refresh: /refresh
+paths:
+  /no-query:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: hello_world
+    x-volos-authorizations: {}
+    x-volos-apply:
+      #analytics: {}
+      quota: {}
+      #spikeArrest: {}
+    get:
+      description: Returns 'Hello' to the caller
+      # used as the method name of the controller
+      operationId: noParams
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: HelloWorldResponse
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse
+  /one-query:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: hello_world
+    x-volos-authorizations: {}
+    x-volos-apply:
+      #analytics: {}
+      quota: {}
+      #spikeArrest: {}
+    get:
+      description: Returns parameters to the caller
+      # used as the method name of the controller
+      operationId: one_parameter
+      parameters:
+        - name: param1
+          in: query
+          description: The first parameter
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: HelloWorldResponse
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse
+  /five-query:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: hello_world
+    x-volos-authorizations: {}
+    x-volos-apply:
+      #analytics: {}
+      quota: {}
+      #spikeArrest: {}
+    get:
+      description: Returns parameters to the caller
+      # used as the method name of the controller
+      operationId: five_parameters
+      parameters:
+        - name: param1
+          in: query
+          description: Parameter 1
+          required: true
+          type: string
+        - name: param2
+          in: query
+          description: Parameter 2
+          required: true
+          type: string
+        - name: param3
+          in: query
+          description: Parameter 3
+          required: true
+          type: string
+        - name: param4
+          in: query
+          description: Parameter 4
+          required: true
+          type: string
+        - name: param5
+          in: query
+          description: Parameter 5
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: HelloWorldResponse
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse
+  /ten-query:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: hello_world
+    x-volos-authorizations: {}
+    x-volos-apply: 
+      #analytics: {}
+      quota: {}
+      #spikeArrest: {}
+    get:
+      description: Returns parameters to the caller
+      # used as the method name of the controller
+      operationId: ten_parameters
+      parameters:
+        - name: param1
+          in: query
+          description: Parameter 1
+          required: true
+          type: string
+        - name: param2
+          in: query
+          description: Parameter 2
+          required: true
+          type: string
+        - name: param3
+          in: query
+          description: Parameter 3
+          required: true
+          type: string
+        - name: param4
+          in: query
+          description: Parameter 4
+          required: true
+          type: string
+        - name: param5
+          in: query
+          description: Parameter 5
+          required: true
+          type: string
+        - name: param6
+          in: query
+          description: Parameter 6
+          required: true
+          type: string
+        - name: param7
+          in: query
+          description: Parameter 7
+          required: true
+          type: string
+        - name: param8
+          in: query
+          description: Parameter 8
+          required: true
+          type: string
+        - name: param9
+          in: query
+          description: Parameter 9
+          required: true
+          type: string
+        - name: param10
+          in: query
+          description: Parameter 10
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: HelloWorldResponse
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse 
+  /one-path/{param1}:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: hello_world
+    x-volos-authorizations: {}
+    x-volos-apply:
+      #analytics: {}
+      quota: {}
+      #spikeArrest: {}
+    get:
+      description: Returns parameters to the caller
+      # used as the method name of the controller
+      operationId: one_parameter
+      parameters:
+        - name: param1
+          in: path
+          description: Parameter 1
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: HelloWorldResponse
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse
+  /five-path/{param1}/{param2}/{param3}/{param4}/{paran5}:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: hello_world
+    x-volos-authorizations: {}
+    x-volos-apply:
+      #analytics: {}
+      quota: {}
+      #spikeArrest: {}
+    get:
+      description: Returns parameters to the caller
+      # used as the method name of the controller
+      operationId: five_parameters
+      parameters:
+        - name: param1
+          in: path
+          description: Parameter 1
+          required: true
+          type: string
+        - name: param2
+          in: path
+          description: Parameter 2
+          required: true
+          type: string
+        - name: param3
+          in: path
+          description: Parameter 3
+          required: true
+          type: string
+        - name: param4
+          in: path
+          description: Parameter 4
+          required: true
+          type: string
+        - name: param5
+          in: path
+          description: Parameter 5
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: HelloWorldResponse
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse
+  /ten-path/{param1}/{param2}/{param3}/{param4}/{param5}/{param6}/{param7}/{param8}/{param9}/{param10}:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: hello_world
+    x-volos-authorizations: {}
+    x-volos-apply: 
+      #analytics: {}
+      quota: {}
+      #spikeArrest: {}
+    get:
+      description: Returns parameters to the caller
+      # used as the method name of the controller
+      operationId: ten_parameters
+      parameters:
+        - name: param1
+          in: path
+          description: Parameter 1
+          required: true
+          type: string
+        - name: param2
+          in: path
+          description: Parameter 2
+          required: true
+          type: string
+        - name: param3
+          in: path
+          description: Parameter 3
+          required: true
+          type: string
+        - name: param4
+          in: path
+          description: Parameter 4
+          required: true
+          type: string
+        - name: param5
+          in: path
+          description: Parameter 5
+          required: true
+          type: string
+        - name: param6
+          in: path
+          description: Parameter 6
+          required: true
+          type: string
+        - name: param7
+          in: path
+          description: Parameter 7
+          required: true
+          type: string
+        - name: param8
+          in: path
+          description: Parameter 8
+          required: true
+          type: string
+        - name: param9
+          in: path
+          description: Parameter 9
+          required: true
+          type: string
+        - name: param10
+          in: path
+          description: Parameter 10
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: HelloWorldResponse
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse 
+# complex objects have schema definitions
+definitions:
+  HelloWorldResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
