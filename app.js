@@ -5,8 +5,7 @@ var express = require('express');
 var app = express();
 
 // uncomment the following if you need to parse incoming form data
-//app.use(express.bodyParser());
-
+app.use(express.bodyParser());
 app.use(a127.middleware());
 
 app.get('/getToken', createToken);
@@ -17,16 +16,21 @@ console.log('Express started on port 10010');
 
 function createToken(req, res, next) {
   var oauth = a127.resource('oauth2');
+  
   var tokenRequest = {
-    clientId: 'JZvXX7w8ND2XkSAmnwFD3M2qR17sMWqF',
-    clientSecret: 'HcE4M4Se4OjXDT65'
+    //clientId: 'X75GxkZxfeJKDSQU8xTUoHV4aLwsSCfS',
+    //clientSecret: 'PbfwPM3EIdczPmNU'
+    clientId: 'UuZ3GH6LkGH3QPfI4zi9VGxAaCwh4hfy',
+    clientSecret: '3tgMywsF7tPt3iBP'
   };
   
   oauth.spi.createTokenClientCredentials(tokenRequest, function(err, result) {
-    if (err) { res.send(err); }
+    if (err) {  return res.send(err.message) }
      console.log(result)
     var accessToken = result.access_token;
    
     res.send("Set access token to: " + result.access_token);
   });
+  
+  
 }

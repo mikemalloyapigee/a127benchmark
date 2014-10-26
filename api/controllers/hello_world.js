@@ -1,12 +1,14 @@
 'use strict';
 
 var util = require('util');
+var _ = require("underscore")
 
 module.exports = {
   noParams: noParams,
   one_parameter: one_parameter,
   five_parameters: five_parameters,
-  ten_parameters: ten_parameters
+  ten_parameters: ten_parameters,
+  processBody: processBody
 };
 
 function noParams(req, res){
@@ -41,4 +43,13 @@ function ten_parameters(req, res){
   retval.param9 = req.swagger.params.param9.value
   retval.param10 = req.swagger.params.param10.value
   res.send(JSON.stringify(retval))
+}
+
+
+function processBody(req, res){
+  var retval = {}
+  var payload = req.swagger.params.value.value;
+  var size = payload[0]["size"];
+  if(payload.length != size){ res.send(500, "Parameter mismatch")}
+  else{res.send(JSON.stringify(payload));}
 }

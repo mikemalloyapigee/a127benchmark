@@ -1,7 +1,7 @@
 swagger: 2.0
 info:
   version: "0.0.1"
-  title: Hello World App
+  title: Benchmark App
 # during dev, should point to your local machine
 host: localhost
 # basePath prefixes all resource paths 
@@ -24,6 +24,8 @@ x-volos-resources:
   cache:
     provider: volos-cache-memory
     options:
+      key: *apigeeProxyKey
+      uri: *apigeeProxyUri
       name: name
       ttl: 1000
   analytics:
@@ -36,8 +38,10 @@ x-volos-resources:
       flushInterval: 10,
       batchSize: 10
   quota:
-    provider: volos-quota-memory
+    provider: volos-quota-apigee
     options:
+      key: *apigeeProxyKey
+      uri: *apigeeProxyUri
       timeUnit: minute
       interval: 1
       allow: 1000000
@@ -66,7 +70,7 @@ paths:
     x-swagger-router-controller: hello_world
     x-volos-authorizations: {}
     x-volos-apply:
-      #analytics: {}
+      analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -87,9 +91,10 @@ paths:
   /one-query:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations: {}
+    x-volos-authorizations:
+      oauth2: {}
     x-volos-apply:
-      #analytics: {}
+      analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -116,9 +121,10 @@ paths:
   /five-query:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations: {}
+    x-volos-authorizations:
+      oauth2: {}
     x-volos-apply:
-      #analytics: {}
+      analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -165,9 +171,10 @@ paths:
   /ten-query:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations: {}
+    x-volos-authorizations:
+      oauth2:{}
     x-volos-apply: 
-      #analytics: {}
+      analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -239,9 +246,10 @@ paths:
   /one-path/{param1}:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations: {}
+    x-volos-authorizations:
+      oauth2:{}
     x-volos-apply:
-      #analytics: {}
+      analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -265,12 +273,13 @@ paths:
           description: Error
           schema:
             $ref: ErrorResponse
-  /five-path/{param1}/{param2}/{param3}/{param4}/{paran5}:
+  /five-path/{param1}/{param2}/{param3}/{param4}/{param5}:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations: {}
+    x-volos-authorizations:
+      oauth2:{}
     x-volos-apply:
-      #analytics: {}
+      analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -317,9 +326,10 @@ paths:
   /ten-path/{param1}/{param2}/{param3}/{param4}/{param5}/{param6}/{param7}/{param8}/{param9}/{param10}:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations: {}
+    x-volos-authorizations:
+      oauth2:{}
     x-volos-apply: 
-      #analytics: {}
+      analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -388,6 +398,92 @@ paths:
           description: Error
           schema:
             $ref: ErrorResponse 
+  /processbody1:
+    x-swagger-router-controller: hello_world
+    x-volos-authorizations:
+      oauth2:{}
+    x-volos-apply: 
+      analytics: {}
+      quota: {}
+      #spikeArrest: {}
+    post:
+      description: Validates parameters
+      operationId: processBody
+      parameters:
+        - name: numParams
+          in: query
+          description: Number of parameters
+          required: true
+          type: number
+       
+      responses:
+        "200":
+          description: Success
+          schema: 
+            $ref: HelloWorldResponse
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse
+  /processbody5:
+    x-swagger-router-controller: hello_world
+    x-volos-authorizations:
+      oauth2:{}
+    x-volos-apply: 
+      analytics: {}
+      quota: {}
+      #spikeArrest: {}
+    post:
+      description: Validates parameters
+      operationId: processBody
+      parameters:
+        - name: numParams
+          in: query
+          description: Number of parameters
+          required: false
+          type: string
+        - name: params
+          in: body
+          description: param1
+          required: true
+          schema:
+            $ref: BodyParam
+      responses:
+        "200":
+          description: Success
+          schema: 
+            $ref: HelloWorldResponse
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse
+  /processbody:
+    x-swagger-router-controller: hello_world
+    x-volos-authorizations:
+      oauth2:{}
+    x-volos-apply: 
+      analytics: {}
+      quota: {}
+      #spikeArrest: {}
+    post:
+      description: Validates parameters
+      operationId: processBody
+      parameters:
+        - name: value
+          in: body
+          description: param1
+          required: true
+          schema:
+            $ref: BodyParam
+      responses:
+        "200":
+          description: Success
+          schema: 
+            $ref: HelloWorldResponse
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse
 # complex objects have schema definitions
 definitions:
   HelloWorldResponse:
@@ -402,3 +498,9 @@ definitions:
     properties:
       message:
         type: string
+  BodyParam:
+    properties:
+      value:
+        type: string
+      size:
+        type: number
