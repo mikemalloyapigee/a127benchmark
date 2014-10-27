@@ -68,7 +68,8 @@ paths:
   /no-query:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations: {}
+    x-volos-authorizations:
+      oauth2: {}
     x-volos-apply:
       analytics: {}
       quota: {}

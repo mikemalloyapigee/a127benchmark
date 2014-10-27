@@ -18,10 +18,10 @@ function createToken(req, res, next) {
   var oauth = a127.resource('oauth2');
   
   var tokenRequest = {
-    //clientId: 'X75GxkZxfeJKDSQU8xTUoHV4aLwsSCfS',
-    //clientSecret: 'PbfwPM3EIdczPmNU'
-    clientId: 'UuZ3GH6LkGH3QPfI4zi9VGxAaCwh4hfy',
-    clientSecret: '3tgMywsF7tPt3iBP'
+    clientId: 'X75GxkZxfeJKDSQU8xTUoHV4aLwsSCfS',
+    clientSecret: 'PbfwPM3EIdczPmNU'
+    //clientId: 'UuZ3GH6LkGH3QPfI4zi9VGxAaCwh4hfy',
+    //clientSecret: '3tgMywsF7tPt3iBP'
   };
   
   oauth.spi.createTokenClientCredentials(tokenRequest, function(err, result) {
@@ -29,7 +29,7 @@ function createToken(req, res, next) {
      console.log(result)
     var accessToken = result.access_token;
    
-    res.send("Set access token to: " + result.access_token);
+    res.send("Set access token to: " + result.access_token );
   });
   
   
