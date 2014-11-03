@@ -68,10 +68,9 @@ paths:
   /no-query:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations:
-      oauth2: {}
+    x-volos-authorizations: {}
     x-volos-apply:
-      analytics: {}
+      #analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -92,10 +91,9 @@ paths:
   /one-query:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations:
-      oauth2: {}
+    x-volos-authorizations: {}
     x-volos-apply:
-      analytics: {}
+      #analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -122,10 +120,9 @@ paths:
   /five-query:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations:
-      oauth2: {}
+    x-volos-authorizations: {}
     x-volos-apply:
-      analytics: {}
+      #analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -172,10 +169,9 @@ paths:
   /ten-query:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations:
-      oauth2:{}
+    x-volos-authorizations: {}
     x-volos-apply: 
-      analytics: {}
+      #analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -247,10 +243,9 @@ paths:
   /one-path/{param1}:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations:
-      oauth2:{}
+    x-volos-authorizations: {}
     x-volos-apply:
-      analytics: {}
+      #analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -277,10 +272,9 @@ paths:
   /five-path/{param1}/{param2}/{param3}/{param4}/{param5}:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations:
-      oauth2:{}
+    x-volos-authorizations: {}
     x-volos-apply:
-      analytics: {}
+      #analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -327,10 +321,9 @@ paths:
   /ten-path/{param1}/{param2}/{param3}/{param4}/{param5}/{param6}/{param7}/{param8}/{param9}/{param10}:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
-    x-volos-authorizations:
-      oauth2:{}
+    x-volos-authorizations: {}
     x-volos-apply: 
-      analytics: {}
+      #analytics: {}
       quota: {}
       #spikeArrest: {}
     get:
@@ -401,10 +394,9 @@ paths:
             $ref: ErrorResponse 
   /processbody1:
     x-swagger-router-controller: hello_world
-    x-volos-authorizations:
-      oauth2:{}
+    x-volos-authorizations: {}
     x-volos-apply: 
-      analytics: {}
+      #analytics: {}
       quota: {}
       #spikeArrest: {}
     post:
@@ -428,10 +420,9 @@ paths:
             $ref: ErrorResponse
   /processbody5:
     x-swagger-router-controller: hello_world
-    x-volos-authorizations:
-      oauth2:{}
+    x-volos-authorizations: {}  
     x-volos-apply: 
-      analytics: {}
+      #analytics: {}
       quota: {}
       #spikeArrest: {}
     post:
@@ -460,10 +451,9 @@ paths:
             $ref: ErrorResponse
   /processbody:
     x-swagger-router-controller: hello_world
-    x-volos-authorizations:
-      oauth2:{}
+    x-volos-authorizations: {}
     x-volos-apply: 
-      analytics: {}
+      #analytics: {}
       quota: {}
       #spikeArrest: {}
     post:

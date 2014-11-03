@@ -26,10 +26,12 @@ function createToken(req, res, next) {
   
   oauth.spi.createTokenClientCredentials(tokenRequest, function(err, result) {
     if (err) {  return res.send(err.message) }
+    else {
      console.log(result)
-    var accessToken = result.access_token;
+     var accessToken = result.access_token;
    
-    res.send("Set access token to: " + result.access_token );
+     res.send("Set access token to: " + result.access_token + "\n");
+    }
   });
   
   
