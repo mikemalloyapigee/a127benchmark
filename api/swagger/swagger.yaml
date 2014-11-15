@@ -1,4 +1,4 @@
-swagger: 2.0
+performanceswagger: 2.0
 info:
   version: "0.0.1"
   title: Benchmark App
@@ -67,7 +67,7 @@ x-volos-resources:
 paths:
   /no-query:
     # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
+    x-swagger-router-controller: performance
     x-volos-authorizations: {}
     x-volos-apply:
       #analytics: {}
@@ -90,7 +90,7 @@ paths:
             $ref: ErrorResponse
   /one-query:
     # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
+    x-swagger-router-controller: performance
     x-volos-authorizations: {}
     x-volos-apply:
       #analytics: {}
@@ -119,7 +119,7 @@ paths:
             $ref: ErrorResponse
   /five-query:
     # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
+    x-swagger-router-controller: performance
     x-volos-authorizations: {}
     x-volos-apply:
       #analytics: {}
@@ -168,7 +168,7 @@ paths:
             $ref: ErrorResponse
   /ten-query:
     # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
+    x-swagger-router-controller: performance
     x-volos-authorizations: {}
     x-volos-apply: 
       #analytics: {}
@@ -242,7 +242,7 @@ paths:
             $ref: ErrorResponse 
   /one-path/{param1}:
     # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
+    x-swagger-router-controller: performance
     x-volos-authorizations: {}
     x-volos-apply:
       #analytics: {}
@@ -271,7 +271,7 @@ paths:
             $ref: ErrorResponse
   /five-path/{param1}/{param2}/{param3}/{param4}/{param5}:
     # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
+    x-swagger-router-controller: performance
     x-volos-authorizations: {}
     x-volos-apply:
       #analytics: {}
@@ -320,7 +320,7 @@ paths:
             $ref: ErrorResponse
   /ten-path/{param1}/{param2}/{param3}/{param4}/{param5}/{param6}/{param7}/{param8}/{param9}/{param10}:
     # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
+    x-swagger-router-controller: performance
     x-volos-authorizations: {}
     x-volos-apply: 
       #analytics: {}
@@ -392,89 +392,7 @@ paths:
           description: Error
           schema:
             $ref: ErrorResponse 
-  /processbody1:
-    x-swagger-router-controller: hello_world
-    x-volos-authorizations: {}
-    x-volos-apply: 
-      #analytics: {}
-      quota: {}
-      #spikeArrest: {}
-    post:
-      description: Validates parameters
-      operationId: processBody
-      parameters:
-        - name: numParams
-          in: query
-          description: Number of parameters
-          required: true
-          type: number
-       
-      responses:
-        "200":
-          description: Success
-          schema: 
-            $ref: HelloWorldResponse
-        default:
-          description: Error
-          schema:
-            $ref: ErrorResponse
-  /processbody5:
-    x-swagger-router-controller: hello_world
-    x-volos-authorizations: {}  
-    x-volos-apply: 
-      #analytics: {}
-      quota: {}
-      #spikeArrest: {}
-    post:
-      description: Validates parameters
-      operationId: processBody
-      parameters:
-        - name: numParams
-          in: query
-          description: Number of parameters
-          required: false
-          type: string
-        - name: params
-          in: body
-          description: param1
-          required: true
-          schema:
-            $ref: BodyParam
-      responses:
-        "200":
-          description: Success
-          schema: 
-            $ref: HelloWorldResponse
-        default:
-          description: Error
-          schema:
-            $ref: ErrorResponse
-  /processbody:
-    x-swagger-router-controller: hello_world
-    x-volos-authorizations: {}
-    x-volos-apply: 
-      #analytics: {}
-      quota: {}
-      #spikeArrest: {}
-    post:
-      description: Validates parameters
-      operationId: processBody
-      parameters:
-        - name: value
-          in: body
-          description: param1
-          required: true
-          schema:
-            $ref: BodyParam
-      responses:
-        "200":
-          description: Success
-          schema: 
-            $ref: HelloWorldResponse
-        default:
-          description: Error
-          schema:
-            $ref: ErrorResponse
+  
 # complex objects have schema definitions
 definitions:
   HelloWorldResponse:

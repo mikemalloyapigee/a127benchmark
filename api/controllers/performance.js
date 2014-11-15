@@ -46,10 +46,3 @@ function ten_parameters(req, res){
 }
 
 
-function processBody(req, res){
-  var retval = {}
-  var payload = req.swagger.params.value.value;
-  var size = payload[0]["size"];
-  if(payload.length != size){ res.send(500, "Parameter mismatch")}
-  else{res.send(JSON.stringify(payload));}
-}
